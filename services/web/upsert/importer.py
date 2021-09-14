@@ -2,7 +2,6 @@ from project import db
 import pandas as pd
 from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects import postgresql
 
 
 class CSVImport:

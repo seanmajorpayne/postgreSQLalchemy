@@ -16,7 +16,7 @@ def create_db():
 
 @cli.command("upsert")
 def upsert_data():
-    perform_upsert()
+    perform_upsert("project/static/train_player_tracking.csv")
 
 @cli.command("seed_db")
 def seed_db():

@@ -1,6 +1,8 @@
+from project import db
 import pandas as pd
 from upsert.importer import CSVImport
 from project.models.nfl import NFL
+from sqlalchemy.dialects import postgresql
 
 class Upsert(CSVImport):
     """
@@ -40,7 +42,7 @@ class Upsert(CSVImport):
         db.session.commit()
 
 
-def perform_upsert():
+def perform_upsert(filename):
     """
     Table column names and unique keys (the values which shouldn't be updated)
     are pulled from the table and provided to the Upsert operation.
@@ -55,6 +57,6 @@ def perform_upsert():
         fields=fields,
         table="nfl",
         chunksize=10000,
-        primary_keys=unique_keys,
+        unique_keys=unique_keys,
     )
-    upsert.import_data(filename="train_player_tracking.csv")
+    upsert.import_data(filename=filename)
