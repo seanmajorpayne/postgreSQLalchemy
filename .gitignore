@@ -1,6 +1,9 @@
+# Dev ops
 .env.dev
 .env.prod
 .env.prod.db
+
+# Static files
 services/web/project/static/*.csv
 
 # Byte-compiled / optimized / DLL files
