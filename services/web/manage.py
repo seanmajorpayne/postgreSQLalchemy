@@ -1,5 +1,5 @@
+import subprocess
 from flask.cli import FlaskGroup
-
 from project import app, db
 from upsert.upsert import perform_upsert
 
@@ -9,21 +9,42 @@ cli = FlaskGroup(app)
 @cli.command("create_db")
 def create_db():
     print("creating db")
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
+    subprocess.run(['sh', './init.sh'])
+
+
+@cli.command("create_prod")
+def create_prod():
+    print("creating prod")
+    subprocess.run(['sh', './init.prod.sh'])
+
+
+@cli.command("migrate_db")
+def migrate_db():
+    print("migrating db")
+    subprocess.run(['sh', './migrate.sh'])
+
+
+@cli.command("migrate_prod")
+def migrate_prod():
+    print("migrating prod")
+    subprocess.run(['sh', './migrate.prod.sh'])
+
+
+@cli.command("upgrade_db")
+def upgrade_db():
+    print("upgrading db")
+    subprocess.run(['sh', './upgrade.sh'])
+
+
+@cli.command("upgrade_prod")
+def upgrade_prod():
+    print("upgrading prod")
+    subprocess.run(['sh', './upgrade.prod.sh'])
 
 
 @cli.command("upsert")
 def upsert_data():
     perform_upsert("project/static/train_player_tracking.csv")
-
-@cli.command("seed_db")
-def seed_db():
-    print("seeding")
-    #n = NFL(game_key=1111, player="A1")
-    #db.session.add(n)
-    #db.session.commit()
 
 
 if __name__ == "__main__":
